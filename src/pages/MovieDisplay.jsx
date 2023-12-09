@@ -8,9 +8,6 @@ export const MovieDisplay = () => {
   const { movieID } = useParams();
   const ID = parseInt(movieID, 10);
   const [movie, setMovie] = useState({});
-  const [view, setView] = useState(false);
-  const [omdb, setOmdb] = useState({});
-  const [ytLink, setYtLink] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -34,7 +31,7 @@ export const MovieDisplay = () => {
   return (
     <div className="flex items-center flex-col p-10">
       {!loading ? (
-        <div className="w-[65vw] flex flex-col items-center gap-5 max-sm:flex-col max-sm:overflow-x-hidden">
+        <div className="w-[65vw] flex flex-col items-center gap-5 max-sm:w-[70vw]">
           <img
             src={`${BaseURL}${movie.poster_path}`}
             alt={movie.title}
