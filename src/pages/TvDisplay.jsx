@@ -92,13 +92,15 @@ export const TvDisplay = () => {
                 <span className="font-bold">Video Links: </span>
               )}
               {tv.videos?.results?.map((item) => (
-                <Link
-                  to={`https://www.youtube.com/watch?v=${item.key}`}
-                  className=" hover:text-blue-500"
-                  target="_blank"
-                >
-                  [{item.name}]
-                </Link>
+                <div>
+                  <Link
+                    to={`https://www.youtube.com/watch?v=${item.key}`}
+                    className="hover:text-blue-500"
+                    target="_blank"
+                  >
+                    [{item.name}]
+                  </Link>
+                </div>
               ))}
             </div>
           </div>
