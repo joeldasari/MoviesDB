@@ -1,6 +1,5 @@
 import { Navbar } from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Movies } from "./pages/Movies";
 import { TvShows } from "./pages/TvShows";
 import { MovieDisplay } from "./pages/MovieDisplay";
 import { TvDisplay } from "./pages/TvDisplay";

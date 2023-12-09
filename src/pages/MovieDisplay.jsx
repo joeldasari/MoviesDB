@@ -31,34 +31,10 @@ export const MovieDisplay = () => {
     };
     fetchMovie();
   }, []);
-  const viewMore = async (imdbID) => {
-    try {
-      setView(true);
-      const result = await axios.get(
-        `https://www.omdbapi.com/?i=${imdbID}&apikey=${
-          import.meta.env.VITE_OMDB
-        }`
-      );
-      setOmdb(result.data);
-      movie.videos.results?.map((item) => {
-        if (
-          movie.videos.results?.length === 1 ||
-          item.name === "Official Trailer" ||
-          item.name === "Official Trailer (Greenband)"
-        ) {
-          setYtLink(item.key);
-        }
-      });
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      setView(false);
-    }
-  };
   return (
     <div className="flex items-center flex-col p-10">
       {!loading ? (
-        <div className="w-[65vw] flex gap-5 max-sm:flex-col max-sm:overflow-x-hidden">
+        <div className="w-[65vw] flex flex-col items-center gap-5 max-sm:flex-col max-sm:overflow-x-hidden">
           <img
             src={`${BaseURL}${movie.poster_path}`}
             alt={movie.title}
@@ -111,45 +87,26 @@ export const MovieDisplay = () => {
               <span className="font-bold">Runtime: </span>
               <span>{movie.runtime} min</span>
             </div>
-            {view ? (
-              <p>Loading...</p>
-            ) : omdb.Actors ? (
-              <div>
-                {/* actors */}
-                <div>
-                  <span className="font-bold">Actors: </span>
-                  <span>{omdb.Actors}</span>
-                </div>
-                {/* director */}
-                <div>
-                  <span className="font-bold">Directed by: </span>
-                  <span>{omdb.Director}</span>
-                </div>
-                {/* imdbRating */}
-                <div>
-                  <span className="font-bold">IMDB: </span>
-                  <span>{omdb.imdbRating}</span>
-                </div>
-                {/* yt videolink  */}
-                <div>
-                  <span className="font-bold">Trailer: </span>
-                  <Link
-                    to={`https://www.youtube.com/watch?v=${ytLink}`}
-                    className=" underline hover:text-blue-500"
-                    target="_blank"
-                  >
-                    Youtube Link
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <button
-                className="p-2 text-sm text-white bg-blue-500 rounded-sm hover:bg-blue-600 active:bg-blue-800"
-                onClick={() => viewMore(movie.imdb_id)}
-              >
-                View More
-              </button>
-            )}
+            {/* rating */}
+            <div>
+              <span className="font-bold">Rating: </span>
+              <span>{movie.vote_average?.toFixed(1)}</span>
+            </div>
+            {/* ytlinks */}
+            <div>
+              {movie.videos?.results.length != 0 && (
+                <span className="font-bold">Video Links: </span>
+              )}
+              {movie.videos?.results?.map((item) => (
+                <Link
+                  to={`https://www.youtube.com/watch?v=${item.key}`}
+                  className=" hover:text-blue-500"
+                  target="_blank"
+                >
+                  [{item.name}]
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       ) : (

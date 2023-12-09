@@ -32,7 +32,7 @@ export const TvDisplay = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-[65vw] flex gap-5 max-sm:flex-col max-sm:overflow-x-hidden">
+        <div className="w-[65vw] flex flex-col items-center gap-5 max-sm:flex-col max-sm:overflow-x-hidden">
           <img
             src={`${BaseURL}${tv.poster_path}`}
             alt={tv.name}
@@ -97,7 +97,7 @@ export const TvDisplay = () => {
                   className=" hover:text-blue-500"
                   target="_blank"
                 >
-                  [{item.type}]
+                  [{item.name}]
                 </Link>
               ))}
             </div>
